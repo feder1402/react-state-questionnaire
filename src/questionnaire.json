@@ -1,0 +1,76 @@
+{
+  "machine": {
+    "id": "questionnaire-machine",
+    "initial": "task1",
+    "context": { },
+    "states": {
+      "task1": {
+        "entry": "updateContext",
+        "on": {
+          "COMPLETED": [
+            {
+              "target": "task2",
+              "cond": "isUnhappy"
+            },
+            {
+              "target": "task3"
+            }
+          ]
+        }
+      },
+      "task2": {
+        "entry": "updateContext",
+        "on": {
+          "COMPLETED": {
+            "target": "task3"
+          }
+        }
+      },
+      "task3": {
+        "type": "final",
+        "entry": "updateContext"
+      }
+    }
+  },
+  "schemas": {
+    "task1": {
+      "type": "object",
+      "title": "Leave feedback",
+      "properties": {
+        "rating": {
+          "type": "integer",
+          "default": 1,
+          "minimum": 1,
+          "maximum": 5
+        }
+      },
+      "required": [
+        "rating"
+      ]
+    },
+    "task2": {
+      "type": "object",
+      "title": "Tell us why",
+      "properties": {
+        "reason": {
+          "type": "string",
+          "default": "I don't like the way the website looks",
+          "enum": [
+            "I don't like the way the website looks",
+            "I didn't get an answer to my question",
+            "I don't understand the website",
+            "The response time was too long"
+          ]
+        }
+      },
+      "required": [
+        "reason"
+      ]
+    },
+    "task3": {
+      "type": "object",
+      "title": "Thanks for your feedback",
+      "properties": { }
+    }
+  }
+}
