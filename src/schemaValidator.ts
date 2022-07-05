@@ -1,7 +1,7 @@
 import Ajv from 'ajv';
 import { JSONSchemaBridge } from 'uniforms-bridge-json-schema';
 
-const ajv = new Ajv({ allErrors: true, useDefaults: true });
+const ajv = new Ajv({ allErrors: true, useDefaults: true, strictSchema: "log" });
 
 function createValidator(schema: object) {
     const validator = ajv.compile(schema);

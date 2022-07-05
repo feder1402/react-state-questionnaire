@@ -1,21 +1,11 @@
-import { assign, createMachine } from 'xstate'
 import { useMachine } from '@xstate/react'
-
-const updateContext = assign((context, event) => ({
-      ...context,
-      ...event?.data
-    }
-  )
-)
-
-const isUnhappy = (context, {data}) => {
-  return data.rating <= 3;
-}
+import generateMachineFromQuestionnaire from './generateMachineFromQuestionnaire';
 
 const useQuestionnaireMachine = questionnaire => {
-  const [state, send] = useMachine(() => createMachine(questionnaire.machine, { actions: { updateContext }, guards: { isUnhappy } }), { devTools: true })
+  const [state, send] = useMachine(() => generateMachineFromQuestionnaire(questionnaire), { devTools: true })
 
-  const schema = questionnaire.schemas[state.value]
+  // Extract schema and context from current state
+  const schema = questionnaire.tasks.properties[state.value]
   const context = state.context
 
   return [state.value, context, schema, send]
