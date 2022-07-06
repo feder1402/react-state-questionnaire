@@ -2,6 +2,21 @@
   "tasks": {
     "type": "object",
     "properties": {
+      "task0": {
+        "type": "object",
+        "title": "Kids",
+        "properties": {
+          "kids": {
+            "type": "integer",
+            "default": 0,
+            "minimum": 0,
+            "maximum": 10
+          }
+        },
+        "required": [
+          "kids"
+        ]
+      },
       "task1": {
         "type": "object",
         "title": "Leave feedback",
@@ -50,6 +65,19 @@
         ]
       },
       "task3": {
+        "cond": "hasKids",
+        "type": "object",
+        "title": "Kids names",
+        "properties": {
+          "kidName": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "kidName"
+        ]
+      },
+      "task4": {
         "type": "object",
         "title": "Thanks for your feedback",
         "properties": { }

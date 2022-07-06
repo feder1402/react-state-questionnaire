@@ -1,11 +1,9 @@
 import React from 'react';
-import {inspect} from "@xstate/inspect";
+import './inspector'
 
 import SchemaStateQuestionnaire from './SchemaStateQuestionnaire';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-
-// inspect({iframe: false});
 
 function App() {
     return (

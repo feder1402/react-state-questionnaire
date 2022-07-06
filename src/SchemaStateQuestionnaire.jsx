@@ -21,10 +21,10 @@ const SchemaStateQuestionnaire = () => {
         <Card title="Questionnaire">
           <Json json={questionnaire}/>
         </Card>
-        <Card title="Current Schema">
+        <Card title="Current Task Schema">
           <Json json={schema}/>
         </Card>
-        <Card title="Context">
+        <Card title="Global Context">
           <Json json={context}/>
         </Card>
         <Card title="Form">
