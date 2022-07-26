@@ -43,11 +43,9 @@ const generateMachineFromQuestionnaire = (questionnaire) => {
       // Apply any machine vveride if provided
       const task = tasks[key]
 
-      if (task.machine) {
-        machine.states[key] = {
-          ...machine.states[key],
-          ...task.machine
-        }
+      // If task has a machine override, use it
+      if (task.on) {
+        machine.states[key].on = task.on
       }
     })
 
@@ -64,6 +62,8 @@ const generateMachineFromQuestionnaire = (questionnaire) => {
     const condKeys = Object.keys(questionnaire.tasks.cond);
 
     condKeys.forEach(key => {
+      // Condition strings come from a trusted source
+      // eslint-disable-next-line no-new-func
       guards[key] = new Function('context', 'event', 'return ' + questionnaire.tasks.cond[key]);
     });
   }

@@ -28,18 +28,16 @@
             "maximum": 5
           }
         },
-        "machine": {
-          "on": {
-            "COMPLETED": [
-              {
-                "target": "task2",
-                "cond": "isUnhappy"
-              },
-              {
-                "target": "task3"
-              }
-            ]
-          }
+        "on": {
+          "COMPLETED": [
+            {
+              "target": "task2",
+              "cond": "isUnhappy"
+            },
+            {
+              "target": "task3"
+            }
+          ]
         },
         "required": [
           "rating"
@@ -65,7 +63,7 @@
         ]
       },
       "task3": {
-        "cond": "hasKids",
+        "skipIf": "hasKids",
         "type": "object",
         "title": "Kids names",
         "properties": {
