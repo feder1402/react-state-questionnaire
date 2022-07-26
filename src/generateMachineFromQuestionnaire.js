@@ -40,12 +40,9 @@ const generateMachineFromQuestionnaire = (questionnaire) => {
 
       machine.states[key] = taskState
 
-      // Apply any machine vveride if provided
-      const task = tasks[key]
-
       // If task has a machine override, use it
-      if (task.on) {
-        machine.states[key].on = task.on
+      if (tasks[key].on) {
+        machine.states[key].on = tasks[key].on
       }
     })
 
@@ -55,22 +52,17 @@ const generateMachineFromQuestionnaire = (questionnaire) => {
     }
   }
 
-  // Parse actionas and guards
+  // Generate any condition guards
   const guards = {};
-
   if (questionnaire?.tasks?.cond) {
-    const condKeys = Object.keys(questionnaire.tasks.cond);
-
-    condKeys.forEach(key => {
-      // Condition strings come from a trusted source
+    Object.keys(questionnaire.tasks.cond).forEach(key => {
+      // Condition strings come from a trusted source, so they are safe to parse
       // eslint-disable-next-line no-new-func
       guards[key] = new Function('context', 'event', 'return ' + questionnaire.tasks.cond[key]);
     });
   }
 
-  const options = { actions: { updateContext }, guards };
-
-  return createMachine(machine, options)
+  return createMachine(machine, { actions: { updateContext }, guards })
 }
 
 export default generateMachineFromQuestionnaire
